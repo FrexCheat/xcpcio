@@ -109,7 +109,7 @@ import { GITHUB_SHA, GITHUB_URL, VERSION } from "@xcpcio/types";
       >© 2020-PRESENT <RouterLink
         to="/"
         hover:underline
-      >XCPCIO™</RouterLink>. All Rights Reserved.</span>
+      >XCPCIO-ZZULI™</RouterLink>. All Rights Reserved.</span>
     </div>
   </footer>
 </template>
