@@ -1,15 +1,15 @@
 {
   "name": "@xcpcio/xcpcio",
-  "version": "0.54.0",
+  "version": "0.54.0-zzuli.1",
   "private": true,
   "packageManager": "pnpm@9.12.1",
   "description": "XCPCIO",
   "author": "Dup4 <lyuzhi.pan@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/xcpcio/xcpcio",
+  "homepage": "https://github.com/FrexCheat/xcpcio/tree/zzuli-modify",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xcpcio/xcpcio.git"
+    "url": "git+https://github.com/FrexCheat/xcpcio.git"
   },
   "bugs": {
     "url": "https://github.com/xcpcio/xcpcio/issues"
