@@ -8,6 +8,7 @@ const contestTypes = [
   "camp",
   "icpc",
   "ccpc",
+  "school-contest",
   "provincial-contest",
 ];
 
