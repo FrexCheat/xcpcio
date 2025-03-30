@@ -44,7 +44,7 @@ watch(data, async () => {
 
 const balloons = computed(() => {
   // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-  return rank.value.balloons.sort(Balloon.compare).reverse().slice(0, 256);
+  return rank.value.balloons.sort(Balloon.compare).reverse();
 });
 </script>
 
