@@ -3,6 +3,7 @@ import type { Image } from "@xcpcio/types";
 import { GET_LOGO_CCPC } from "./ccpc";
 import { GET_LOGO_HUNAN_CPC } from "./hunan-cpc";
 import { GET_LOGO_ICPC } from "./icpc";
+import { GET_LOGO_ZZULI } from "./zzuli";
 
 export function getLogoFromPreset(image: Image): Image {
   if (!image.preset) {
@@ -21,6 +22,10 @@ export function getLogoFromPreset(image: Image): Image {
 
   if (preset === "HUNAN_CPC") {
     return GET_LOGO_HUNAN_CPC();
+  }
+
+  if (preset === "ZZULI") {
+    return GET_LOGO_ZZULI();
   }
 
   return image;
