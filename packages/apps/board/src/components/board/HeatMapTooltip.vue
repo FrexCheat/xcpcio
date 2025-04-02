@@ -11,7 +11,7 @@ const props = defineProps({
   },
   delay: {
     type: Number,
-    default: 100,
+    default: 50,
   },
   textColor: {
     type: String,
