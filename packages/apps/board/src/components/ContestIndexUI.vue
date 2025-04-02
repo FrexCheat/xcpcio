@@ -57,22 +57,12 @@ const logo = computed(() => {
               class="title"
               w-inherit
             >
-              <Tooltip>
-                <div
-                  overflow-hidden
-                  text-2xl truncate
-                >
-                  {{ contest.name }}
-                </div>
-
-                <template #popper>
-                  <div
-                    text-lg
-                  >
-                    {{ contest.name }}
-                  </div>
-                </template>
-              </Tooltip>
+              <div
+                overflow-hidden
+                text-2xl truncate
+              >
+                {{ contest.name }}
+              </div>
             </div>
           </div>
 
