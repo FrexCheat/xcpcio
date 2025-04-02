@@ -13,7 +13,6 @@ declare module 'vue' {
     Badge: typeof import('./components/board/Badge.vue')['default']
     Balloon: typeof import('./components/Balloon.vue')['default']
     BalloonBlock: typeof import('./components/BalloonBlock.vue')['default']
-    BalloonFilter: typeof import('./components/BalloonFilter.vue')['default']
     Board: typeof import('./components/board/Board.vue')['default']
     BoardTab: typeof import('./components/board/BoardTab.vue')['default']
     BottomStatistics: typeof import('./components/board/BottomStatistics.vue')['default']
