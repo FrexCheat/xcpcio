@@ -52,7 +52,7 @@ import { GITHUB_SHA, GITHUB_URL, VERSION } from "@xcpcio/types";
           <div
             mr-4 md:mr-6
           >
-            <Tooltip>
+            <HeatMapTooltip>
               <a
                 :href="GITHUB_URL"
                 hover:underline
@@ -63,7 +63,7 @@ import { GITHUB_SHA, GITHUB_URL, VERSION } from "@xcpcio/types";
                 GitHub
               </a>
 
-              <template #popper>
+              <template #tooltip-content>
                 <div
                   flex justify-center items-start
                   flex-col
@@ -72,7 +72,7 @@ import { GITHUB_SHA, GITHUB_URL, VERSION } from "@xcpcio/types";
                   <div>Sha: {{ GITHUB_SHA }}</div>
                 </div>
               </template>
-            </Tooltip>
+            </HeatMapTooltip>
           </div>
         </li>
 
@@ -80,7 +80,9 @@ import { GITHUB_SHA, GITHUB_URL, VERSION } from "@xcpcio/types";
           <div
             mr-4 md:mr-6
           >
-            <Tooltip>
+            <HeatMapTooltip
+              position="right"
+            >
               <a
                 href="mailto:admin@frexlink.com"
                 hover:underline
@@ -88,7 +90,7 @@ import { GITHUB_SHA, GITHUB_URL, VERSION } from "@xcpcio/types";
                 Contact
               </a>
 
-              <template #popper>
+              <template #tooltip-content>
                 <div
                   flex justify-center items-start
                   flex-col
@@ -98,7 +100,7 @@ import { GITHUB_SHA, GITHUB_URL, VERSION } from "@xcpcio/types";
                   <div>Data Region: {{ DATA_REGION }}</div>
                 </div>
               </template>
-            </Tooltip>
+            </HeatMapTooltip>
           </div>
         </li>
       </ul>

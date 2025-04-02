@@ -79,8 +79,8 @@ onMounted(() => {
     flex
   >
     <div>
-      <Tooltip
-        w-inherit
+      <HeatMapTooltip
+        position="left"
       >
         <div>
           <div
@@ -89,7 +89,7 @@ onMounted(() => {
           />
         </div>
 
-        <template #popper>
+        <template #tooltip-content>
           <div
             flex
           >
@@ -98,7 +98,7 @@ onMounted(() => {
             </div>
           </div>
         </template>
-      </Tooltip>
+      </HeatMapTooltip>
     </div>
 
     <div

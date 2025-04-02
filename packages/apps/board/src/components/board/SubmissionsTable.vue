@@ -506,12 +506,14 @@ function closeVideoModal() {
 
                   <td class="whitespace-nowrap px-4 py-2 text-gray-900 dark:text-white">
                     <div flex items-center>
-                      <Tooltip>
+                      <HeatMapTooltip
+                        position="left"
+                      >
                         {{ s.timestampDisplayFormatWithSecond }}
-                        <template #popper>
+                        <template #tooltip-content>
                           {{ s.timestampDisplayFormatWithMilliSecond }}
                         </template>
-                      </Tooltip>
+                      </HeatMapTooltip>
                     </div>
                   </td>
 
@@ -519,7 +521,9 @@ function closeVideoModal() {
                     v-if="rank.contest.options.submissionEnableActionField"
                     class="whitespace-nowrap px-4 py-2 text-gray-900 dark:text-white"
                   >
-                    <Tooltip>
+                    <HeatMapTooltip
+                      position="left"
+                    >
                       <div
                         v-if="s.reaction"
                         flex items-center justify-start
@@ -528,10 +532,10 @@ function closeVideoModal() {
                         i-material-symbols-slow-motion-video
                         @click="openVideoModal(s.reaction)"
                       />
-                      <template #popper>
+                      <template #tooltip-content>
                         Reaction Video
                       </template>
-                    </Tooltip>
+                    </HeatMapTooltip>
                   </td>
                 </tr>
               </template>

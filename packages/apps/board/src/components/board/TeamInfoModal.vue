@@ -80,7 +80,9 @@ const types = [TYPE_SUBMISSIONS, TYPE_STATISTICS, TYPE_AWARDS];
                 width-class="h-8 w-8"
               />
 
-              <Tooltip>
+              <HeatMapTooltip
+                position="right"
+              >
                 <h3
                   text-gray-900 dark:text-white
                   text-2xl
@@ -89,7 +91,7 @@ const types = [TYPE_SUBMISSIONS, TYPE_STATISTICS, TYPE_AWARDS];
                   {{ headerTitle }}
                 </h3>
 
-                <template #popper>
+                <template #tooltip-content>
                   <div
                     flex flex-col
                     justify-start items-start
@@ -99,7 +101,7 @@ const types = [TYPE_SUBMISSIONS, TYPE_STATISTICS, TYPE_AWARDS];
                     </div>
                   </div>
                 </template>
-              </Tooltip>
+              </HeatMapTooltip>
             </div>
 
             <ModalMenu
