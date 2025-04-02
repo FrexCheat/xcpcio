@@ -72,4 +72,4 @@ submissions:
   total_submissions: Total Submissions
 
 balloons:
-  location_filter: Location Filter
+  filter: Filter

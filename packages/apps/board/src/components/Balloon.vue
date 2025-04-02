@@ -21,18 +21,19 @@ const submissionsData = ref([] as Submissions);
 const rank = ref({} as Rank);
 const now = useNow();
 
-const locationOptions = computed(() => {
-  return [...new Set(
-    teamsData.value.filter(t => t.location).map(t => t.location),
-  )].map(o => ({ value: o, text: o }));
+const locationInput = ref("");
+const problemSelectedItems = ref<Array<SelectOptionItem>>([]);
+const problemLastSelectItem = ref({});
+
+const problemOptions = computed(() => {
+  return contestData.value.problems.map((p) => {
+    return { value: p.label, text: p.label + p.name };
+  });
 });
 
-const locationSelectedItems = ref<Array<SelectOptionItem>>([]);
-const locationLastSelectItem = ref({});
-
-function locationOnSelect(selectedItems: Array<SelectOptionItem>, lastSelectItem: SelectOptionItem) {
-  locationSelectedItems.value = selectedItems;
-  locationLastSelectItem.value = lastSelectItem;
+function problemOnSelect(selectedItems: Array<SelectOptionItem>, lastSelectItem: SelectOptionItem) {
+  problemSelectedItems.value = selectedItems;
+  problemLastSelectItem.value = lastSelectItem;
 }
 
 function reBuildBalloons() {
@@ -60,10 +61,15 @@ watch(data, async () => {
 
 const balloons = computed(() => {
   return rank.value.balloons.filter((b) => {
-    if (locationSelectedItems.value.length === 0) {
-      return true;
-    }
-    return locationSelectedItems.value.some(o => o.value === b.team.location);
+    const trimmedLocationInput = locationInput.value.trim();
+
+    const problemMatch = problemSelectedItems.value.length === 0
+      || problemSelectedItems.value.some(item => item.value === b.problem.label);
+
+    const locationMatch = trimmedLocationInput === ""
+      || b.team.location?.includes(locationInput.value);
+
+    return problemMatch && locationMatch;
   }).sort(Balloon.compare).reverse();
 });
 </script>
@@ -111,16 +117,26 @@ const balloons = computed(() => {
             ml-2
             text-size-xl
           >
-            {{ t("balloons.location_filter") }}
+            {{ t("balloons.filter") }}
           </div>
           <div
-            w-690px
+            w-200px
+          >
+            <TheInput
+              v-model="locationInput"
+              text-align="left"
+              placeholder="考场名称"
+              h-37px
+            />
+          </div>
+          <div
+            w-550px
           >
             <MultiSelect
-              :options="locationOptions"
-              :selected-options="locationSelectedItems"
-              placeholder="Location"
-              @select="locationOnSelect"
+              :options="problemOptions"
+              :selected-options="problemSelectedItems"
+              placeholder="题目 ID"
+              @select="problemOnSelect"
             />
           </div>
         </div>

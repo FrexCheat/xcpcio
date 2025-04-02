@@ -72,4 +72,4 @@ submissions:
   total_submissions: 总提交数
 
 balloons:
-  location_filter: 考场筛选
+  filter: 筛选器
