@@ -223,7 +223,7 @@ const maxTeamLength = computed(() => {
             </th>
 
             <th class="title" style="width: 2.5rem;">
-              <HeatMapTooltip>
+              <HeatMapTooltip position="left">
                 <div>
                   {{ t("standings.se") }}
                 </div>
