@@ -1,4 +1,5 @@
 import path from "node:path";
+import process from "node:process";
 import VueI18n from "@intlify/unplugin-vue-i18n/vite";
 import Shiki from "@shikijs/markdown-it";
 import { unheadVueComposablesImports } from "@unhead/vue";
@@ -22,8 +23,7 @@ import generateSitemap from "vite-ssg-sitemap";
 import "vitest/config";
 
 const proxyConfig = {
-  target: "https://board.xcpcio.com",
-  // target: "http://127.0.0.1:8080",
+  target: process.env.PROXY_TARGET || "https://board.xcpcio.com",
   changeOrigin: true,
 };
 
@@ -35,18 +35,18 @@ export default defineConfig({
   },
 
   plugins: [
+    // https://github.com/posva/unplugin-vue-router
+    VueRouter({
+      extensions: [".vue", ".md"],
+      dts: "src/typed-router.d.ts",
+    }),
+
     VueMacros({
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /\.md$/],
         }),
       },
-    }),
-
-    // https://github.com/posva/unplugin-vue-router
-    VueRouter({
-      extensions: [".vue", ".md"],
-      dts: "src/typed-router.d.ts",
     }),
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
@@ -147,11 +147,11 @@ export default defineConfig({
       include: [path.resolve(__dirname, "locales/**")],
     }),
 
-    // https://github.com/feat-agency/vite-plugin-webfont-dl
-    WebfontDownload(),
-
     // https://github.com/webfansplz/vite-plugin-vue-devtools
     VueDevTools(),
+
+    // https://github.com/feat-agency/vite-plugin-webfont-dl
+    WebfontDownload(),
 
     // https://github.com/vbenjs/vite-plugin-html
     createHtmlPlugin({
