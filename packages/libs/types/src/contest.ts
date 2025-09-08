@@ -16,7 +16,15 @@ export type CalculationOfPenalty = "in_minutes"
 export interface ContestOptions {
   calculation_of_penalty?: CalculationOfPenalty;
   submission_timestamp_unit?: TimeUnit;
+
+  // deprecated, please use has_reaction_videos instead
   submission_has_reaction?: boolean;
+
+  has_reaction_videos?: boolean;
+
+  // example: https://your.video.cdn/wf/2025/${submission_id}.mp4
+  // ${submission_id} will be replaced with the submission id
+  reaction_video_url_template?: string;
 }
 
 export type MedalPreset = "ccpc" | "icpc";
@@ -27,10 +35,10 @@ export interface Contest {
 
   start_time: number | DateTimeISO8601String;
   end_time: number | DateTimeISO8601String;
-  freeze_time?: number | DateTimeISO8601String;
-
-  frozen_time?: number; // unit: seconds
   penalty: number; // unit: seconds
+
+  freeze_time?: number | DateTimeISO8601String;
+  frozen_time?: number; // unit: seconds
 
   problems?: Array<Problem>;
   problem_id?: Array<string>;
