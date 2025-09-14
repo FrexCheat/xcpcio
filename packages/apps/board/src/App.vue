@@ -6,14 +6,6 @@ useHead({
   title: "Board - ZZULI",
   meta: [
     {
-      name: "description",
-      content: "XCPCIO-ZZULI-Board 主要收录 ZZULI-*CPC 系列竞赛的榜单。",
-    },
-    {
-      name: "keywords",
-      content: "zzuli, icpc, ccpc, rank, board, standings",
-    },
-    {
       name: "theme-color",
       content: () => isDark.value ? "#00aba9" : "#ffffff",
     },

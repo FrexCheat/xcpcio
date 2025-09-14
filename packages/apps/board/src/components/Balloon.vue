@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import type { Contest, SelectOptionItem, Submissions, Teams } from "@xcpcio/core";
 import type { Contest as IContest, Submissions as ISubmissions, Teams as ITeams } from "@xcpcio/types";
+import { BALLOON_TITLE_SUFFIX } from "@board/composables/constant";
+
 import { Balloon, createContest, createSubmissions, createTeams, Rank } from "@xcpcio/core";
-
-import { MultiSelect } from "vue-search-select";
-
-import { BALLOON_TITLE_SUFFIX } from "~/composables/constant";
 
 const props = defineProps<{
   dataSourceUrl: string;

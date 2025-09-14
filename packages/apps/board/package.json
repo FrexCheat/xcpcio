@@ -1,24 +1,24 @@
 {
   "name": "@xcpcio/board-app",
   "type": "module",
-  "version": "0.58.0",
-  "description": "XCPCIO Board App",
+  "version": "0.60.0",
+  "description": "The ICPC Series Competition Leaderboard Visualization Engine",
   "author": "Dup4 <hi@dup4.com>",
   "license": "MIT",
-  "homepage": "https://github.com/xcpcio/xcpcio",
+  "funding": "https://github.com/sponsors/Dup4",
+  "homepage": "https://xcpcio.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xcpcio/xcpcio.git"
+    "url": "git+https://github.com/xcpcio/xcpcio.git",
+    "directory": "packages/apps/board"
   },
   "bugs": {
     "url": "https://github.com/xcpcio/xcpcio/issues"
   },
   "keywords": [
     "ICPC",
-    "CCPC",
-    "Rank",
-    "Board",
-    "Standings"
+    "Leaderboard",
+    "Visualization"
   ],
   "files": [
     "./*.{js,ts,json}",
@@ -35,11 +35,7 @@
     "preview": "vite preview",
     "preview-https": "serve dist",
     "start": "npm run preview",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "test": "vitest",
     "test:e2e": "cypress open",
-    "test:unit": "vitest",
     "typecheck": "vue-tsc --noEmit",
     "sizecheck": "npx vite-bundle-visualizer"
   },
@@ -49,7 +45,6 @@
     "@unocss/reset": "catalog:",
     "@vueuse/components": "catalog:",
     "@vueuse/core": "catalog:",
-    "@vueuse/head": "catalog:",
     "@vueuse/router": "catalog:",
     "@xcpcio/core": "workspace:*",
     "@xcpcio/types": "workspace:*",

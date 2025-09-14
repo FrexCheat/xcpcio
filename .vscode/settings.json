@@ -6,8 +6,26 @@
   "files.trimFinalNewlines": true,
 
   "[shellscript]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format",
+    "editor.defaultFormatter": "mkhl.shfmt",
     "editor.formatOnSave": true
+  },
+
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "notebook.formatOnSave.enabled": true,
+  "notebook.codeActionsOnSave": {
+    "notebook.source.fixAll": "explicit",
+    "notebook.source.organizeImports": "explicit"
+  },
+
+  "markdownlint.config": {
+    "MD033": false
   },
 
   "i18n-ally.sourceLanguage": "en",
@@ -64,20 +82,6 @@
     "postcss"
   ],
 
-  "[python]": {
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll": "explicit",
-      "source.organizeImports": "explicit"
-    },
-    "editor.defaultFormatter": "charliermarsh.ruff"
-  },
-  "notebook.formatOnSave.enabled": true,
-  "notebook.codeActionsOnSave": {
-    "notebook.source.fixAll": "explicit",
-    "notebook.source.organizeImports": "explicit"
-  },
-
   "cSpell.words": [
     "antd",
     "antfu",
@@ -92,6 +96,7 @@
     "Delivr",
     "demi",
     "DOCKERHUB",
+    "domjudge",
     "esmo",
     "flowbite",
     "fontawesome",
