@@ -1,7 +1,7 @@
 {
   "name": "@xcpcio/types",
   "type": "module",
-  "version": "0.60.0",
+  "version": "0.62.1",
   "description": "Types for XCPCIO",
   "author": "Dup4 <hi@dup4.com>",
   "license": "MIT",
@@ -44,7 +44,6 @@
     "bumpp": "catalog:",
     "eslint": "catalog:",
     "esmo": "catalog:",
-    "git-repo-info": "catalog:",
     "npm-run-all": "catalog:",
     "pnpm": "catalog:",
     "taze": "catalog:",

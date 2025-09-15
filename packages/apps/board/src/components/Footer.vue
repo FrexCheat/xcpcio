@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { GITHUB_SHA, GITHUB_URL, VERSION } from "@xcpcio/types";
-</script>
-
 <template>
   <footer
     mt-8
@@ -68,7 +64,7 @@ import { GITHUB_SHA, GITHUB_URL, VERSION } from "@xcpcio/types";
                   flex justify-center items-start
                   flex-col
                 >
-                  <div>Tag: {{ VERSION }}</div>
+                  <div>Tag: {{ APP_VERSION }}</div>
                   <div>Sha: {{ GITHUB_SHA }}</div>
                 </div>
               </template>
@@ -111,7 +107,7 @@ import { GITHUB_SHA, GITHUB_URL, VERSION } from "@xcpcio/types";
       >© 2020-PRESENT <RouterLink
         to="/"
         hover:underline
-      >XCPCIO-ZZULI™</RouterLink>. All Rights Reserved.</span>
+      >XCPCIO™</RouterLink>. All Rights Reserved. Adapted by ZZULI.</span>
     </div>
   </footer>
 </template>
