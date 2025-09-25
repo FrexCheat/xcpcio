@@ -16,6 +16,7 @@
   },
 
   "[python]": {
+    "editor.tabSize": 4,
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
@@ -90,6 +91,7 @@
   "cSpell.words": [
     "antd",
     "antfu",
+    "archiver",
     "Attributify",
     "buildx",
     "bumpp",
@@ -115,6 +117,7 @@
     "Immer",
     "immerable",
     "intlify",
+    "judgements",
     "metas",
     "nocheck",
     "noopener",

@@ -24,9 +24,9 @@ RUN apt-get update && apt-get install -y \
     && nvm use 24 \
     && nvm alias default 24 \
     && corepack enable pnpm \
-    && pnpm install \
+    && pnpm install --force \
     && curl -LsSf https://astral.sh/uv/install.sh | sh \
-    && cd python && uv install \
+    && cd python && uv sync \
     && cd ..
 
 
