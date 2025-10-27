@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Rank, RankOptions, SelectOptionItem } from "@xcpcio/core";
+import type { Lang } from "@xcpcio/types";
 import _ from "lodash";
-import { MultiSelect } from "vue-search-select";
 
 const props = defineProps<{
   isHidden: boolean;
@@ -16,7 +16,8 @@ const emit = defineEmits([
 
 const beforeRankOptions = _.cloneDeep(props.rankOptions);
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
+const lang = computed(() => locale.value as unknown as Lang);
 
 const isHidden = computed({
   get() {
@@ -42,22 +43,6 @@ const title = computed(() => {
 
 const rank = computed(() => props.rank);
 
-const isComposing = ref(false);
-
-function onCompositionStart() {
-  isComposing.value = true;
-}
-
-function onCompositionEnd() {
-  isComposing.value = false;
-}
-
-function onDelete(event: Event) {
-  if (isComposing.value) {
-    event.stopPropagation();
-  }
-}
-
 const orgOptions = computed(() => {
   const res = rank.value.organizations.map((o) => {
     return {
@@ -79,7 +64,7 @@ const teamsOptions = computed(() => {
   const res = rank.value.originTeams.map((t) => {
     return {
       value: t.id,
-      text: t.organization ? `${t.name} - ${t.organization}` : t.name,
+      text: t.organization ? `${t.name.getOrDefault(lang.value)} - ${t.organization}` : t.name.getOrDefault(lang.value),
     };
   });
 
@@ -96,6 +81,10 @@ async function onCancel() {
   rankOptions.value.setSelf(beforeRankOptions);
   await nextTick();
   isHidden.value = true;
+}
+
+async function onBeforeClose() {
+  await onCancel();
 }
 
 const localStorageKeyForFilterOrganizations = getLocalStorageKeyForFilterOrganizations();
@@ -116,6 +105,7 @@ function onConfirm() {
     :title="title"
     width="w-200"
     mt="mt-4"
+    @on-before-close="onBeforeClose"
   >
     <div
       w-full
@@ -143,13 +133,10 @@ function onConfirm() {
             w-full
             col-span-6
           >
-            <MultiSelect
+            <TheMultiSelect
               :options="orgOptions"
               :selected-options="orgSelectedItems"
               @select="orgOnSelect"
-              @compositionstart="onCompositionStart"
-              @compositionend="onCompositionEnd"
-              @keydown.delete.capture="onDelete"
             />
           </div>
 
@@ -165,7 +152,7 @@ function onConfirm() {
             w-full
             col-span-6
           >
-            <MultiSelect
+            <TheMultiSelect
               :options="teamsOptions"
               :selected-options="teamsSelectedItems"
               @select="teamsOnSelect"

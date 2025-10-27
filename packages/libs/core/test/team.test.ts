@@ -15,7 +15,7 @@ describe("team", () => {
         "attemptedProblemNum": 0,
         "awards": [],
         "badge": undefined,
-        "coach": undefined,
+        "coaches": [],
         "group": [
           "official",
         ],
@@ -23,15 +23,35 @@ describe("team", () => {
         "lastSolvedProblem": null,
         "lastSolvedProblemStatistics": null,
         "members": [
-          "江骏扬",
-          "罗昊",
-          "辜飞云",
+          Person {
+            "name": I18nText {
+              "fallback": "江骏扬",
+              "texts": Map {},
+            },
+          },
+          Person {
+            "name": I18nText {
+              "fallback": "罗昊",
+              "texts": Map {},
+            },
+          },
+          Person {
+            "name": I18nText {
+              "fallback": "辜飞云",
+              "texts": Map {},
+            },
+          },
         ],
-        "name": "前面的题目以后再来探索吧？",
+        "missingPhoto": false,
+        "name": I18nText {
+          "fallback": "前面的题目以后再来探索吧？",
+          "texts": Map {},
+        },
         "organization": "重庆邮电大学",
         "organizationRank": -1,
         "originalRank": 0,
         "penalty": 0,
+        "photo": undefined,
         "placeChartPoints": [],
         "problemStatistics": [],
         "problemStatisticsMap": Map {},

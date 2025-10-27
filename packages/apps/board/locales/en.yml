@@ -25,16 +25,20 @@ index:
 
 type_menu:
   rank: Rank
+  info: Info
   submissions: Submissions
   statistics: Statistics
   balloon: Balloon
-  export: Export
   resolver: Resolver
   filter: Filter
   options: Options
   awards: Awards
   utility: Utility
   countdown: Countdown
+
+utility:
+  tools: Tools
+  export: Export
 
 standings:
   start_time: Start
@@ -74,3 +78,12 @@ submissions:
 
 balloons:
   filter: Filter
+
+team_info:
+  rank: Rank
+  team_name: Team Name
+  organization: Organization
+  group: Group
+  members: Members
+  coaches: Coaches
+  location: Location

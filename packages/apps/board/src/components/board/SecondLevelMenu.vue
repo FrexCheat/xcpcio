@@ -1,19 +1,14 @@
 <script setup lang="ts">
+import type { I18nText } from "@xcpcio/core";
 import type { Lang } from "@xcpcio/types";
-import { useRouteQuery } from "@vueuse/router";
 
 export interface Item {
-  title?: string;
-
-  titles?: Map<Lang, string>;
-  defaultLang?: Lang;
-
+  title: string | I18nText;
   keyword: string;
-  isDefault?: boolean;
 
   link?: string;
-
   isModal?: boolean;
+  isDefault?: boolean;
 }
 
 const props = defineProps<{
@@ -37,7 +32,7 @@ const defaultType = computed(() => {
   return props.items?.[0].keyword;
 });
 
-const currentItemFromRouteQuery = useRouteQuery(
+const currentItemFromRouteQuery = useRouteQueryWithoutParam(
   props.queryParamName,
   defaultType.value,
   { transform: String },
@@ -53,17 +48,14 @@ const currentItem = computed({
 });
 
 const { t, locale } = useI18n();
+const lang = computed(() => locale.value as unknown as Lang);
 
 function getTitle(item: Item) {
-  if (item.title) {
+  if (typeof item.title === "string") {
     return t(item.title);
   }
 
-  if (item.titles) {
-    return item.titles.get(locale.value as unknown as Lang) ?? item.titles.get(item.defaultLang!);
-  }
-
-  return "";
+  return item.title?.getOrDefault(lang.value);
 }
 
 function isCurrent(item: Item): boolean {

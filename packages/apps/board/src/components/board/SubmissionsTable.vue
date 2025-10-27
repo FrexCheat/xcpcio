@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import type { Rank, SelectOptionItem, Submissions } from "@xcpcio/core";
+import type { Lang, SubmissionReaction, SubmissionStatus } from "@xcpcio/types";
 
-import type { SubmissionReaction, SubmissionStatus } from "@xcpcio/types";
 import { Pagination } from "@board/composables/pagination";
 import { Submission } from "@xcpcio/core";
 import { SubmissionStatusToString } from "@xcpcio/types";
-
-import { MultiSelect } from "vue-search-select";
 
 import "@board/styles/submission-status-filter.css";
 
@@ -31,6 +29,9 @@ const props = defineProps<{
   removeBorder?: boolean;
   enableFilter?: EnableFilterOptions;
 }>();
+
+const { locale } = useI18n();
+const lang = computed(() => locale.value as unknown as Lang);
 
 const rank = computed(() => props.rank);
 const enableFilter = computed(() => props.enableFilter);
@@ -76,9 +77,10 @@ function orgOnSelect(selectedItems: Array<SelectOptionItem>, lastSelectItem: Sel
 
 const teamsOptions = computed(() => {
   const res = rank.value.originTeams.map((t) => {
+    const teamName = t.name.getOrDefault(lang.value);
     return {
       value: t.id,
-      text: t.organization ? `${t.name} - ${t.organization}` : t.name,
+      text: t.organization ? `${teamName} - ${t.organization}` : teamName,
     };
   });
 
@@ -302,9 +304,9 @@ function closeVideoModal() {
           >
             <div
               v-if="rank.contest.organization && enableFilter?.organization"
-              w-48
+              w-64
             >
-              <MultiSelect
+              <TheMultiSelect
                 :options="orgOptions"
                 :selected-options="orgSelectedItems"
                 :placeholder="rank.contest.organization"
@@ -314,9 +316,9 @@ function closeVideoModal() {
 
             <div
               v-if="enableFilter?.team"
-              w-48
+              w-64
             >
-              <MultiSelect
+              <TheMultiSelect
                 :options="teamsOptions"
                 :selected-options="teamsSelectedItems"
                 placeholder="Team"
@@ -326,9 +328,9 @@ function closeVideoModal() {
 
             <div
               v-if="enableFilter?.status"
-              w-68
+              w-64
             >
-              <MultiSelect
+              <TheMultiSelect
                 :options="statusOptions"
                 :selected-options="statusSelectedItems"
                 placeholder="Status"
@@ -341,7 +343,7 @@ function closeVideoModal() {
               v-if="enableFilter?.language && languageOptions.length > 0"
               w-48
             >
-              <MultiSelect
+              <TheMultiSelect
                 :options="languageOptions"
                 :selected-options="languageSelectedItems"
                 placeholder="Language"
@@ -466,7 +468,7 @@ function closeVideoModal() {
                   </td>
 
                   <td class="whitespace-nowrap px-4 py-2 text-gray-900 dark:text-white">
-                    {{ rank.teamsMap.get(s.teamId)?.name }}
+                    {{ rank.teamsMap.get(s.teamId)?.name.getOrDefault(lang) }}
                   </td>
 
                   <td

@@ -34,35 +34,43 @@ Contest {
   "freezeTime": "2023-05-14T05:10:00.000Z",
   "group": Map {
     "all" => Group {
-      "defaultLang": "zh-CN",
       "isDefault": true,
-      "names": Map {
-        "en" => "All",
-        "zh-CN" => "所有队伍",
+      "name": I18nText {
+        "fallbackLang": "zh-CN",
+        "texts": Map {
+          "en" => "All",
+          "zh-CN" => "所有队伍",
+        },
       },
     },
     "official" => Group {
-      "defaultLang": "zh-CN",
       "isDefault": false,
-      "names": Map {
-        "zh-CN" => "正式队伍",
-        "en" => "Official",
+      "name": I18nText {
+        "fallbackLang": "zh-CN",
+        "texts": Map {
+          "zh-CN" => "正式队伍",
+          "en" => "Official",
+        },
       },
     },
     "unofficial" => Group {
-      "defaultLang": "zh-CN",
       "isDefault": false,
-      "names": Map {
-        "zh-CN" => "打星队伍",
-        "en" => "Unofficial",
+      "name": I18nText {
+        "fallbackLang": "zh-CN",
+        "texts": Map {
+          "zh-CN" => "打星队伍",
+          "en" => "Unofficial",
+        },
       },
     },
     "girl" => Group {
-      "defaultLang": "zh-CN",
       "isDefault": false,
-      "names": Map {
-        "zh-CN" => "女队",
-        "en" => "Girls",
+      "name": I18nText {
+        "fallbackLang": "zh-CN",
+        "texts": Map {
+          "zh-CN" => "女队",
+          "en" => "Girls",
+        },
       },
     },
   },
@@ -79,10 +87,12 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       "silver": 4,
     },
   },
-  "name": "第八届中国大学生程序设计竞赛总决赛（正式赛）",
+  "name": I18nText {
+    "fallback": "第八届中国大学生程序设计竞赛总决赛（正式赛）",
+    "texts": Map {},
+  },
   "options": ContestOptions {
     "calculationOfPenalty": "in_minutes",
-    "reactionVideoUrlTemplate": undefined,
     "submissionEnableActionField": false,
     "submissionHasLanguageField": false,
     "submissionHasReactionField": false,
@@ -99,7 +109,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "0",
       "label": "A",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 29,
         "attemptedNum": 56,
@@ -143,7 +152,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "1",
       "label": "B",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 3,
         "attemptedNum": 9,
@@ -187,7 +195,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "2",
       "label": "C",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 99,
         "attemptedNum": 184,
@@ -231,7 +238,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "3",
       "label": "D",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 1,
         "attemptedNum": 1,
@@ -275,7 +281,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "4",
       "label": "E",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 126,
         "attemptedNum": 148,
@@ -319,7 +324,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "5",
       "label": "F",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 125,
         "attemptedNum": 255,
@@ -363,7 +367,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "6",
       "label": "G",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 0,
         "attemptedNum": 0,
@@ -383,7 +386,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "7",
       "label": "H",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 6,
         "attemptedNum": 12,
@@ -427,7 +429,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "8",
       "label": "I",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 2,
         "attemptedNum": 6,
@@ -471,7 +472,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "9",
       "label": "J",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 108,
         "attemptedNum": 337,
@@ -515,7 +515,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "10",
       "label": "K",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 1,
         "attemptedNum": 4,
@@ -559,7 +558,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "11",
       "label": "L",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 48,
         "attemptedNum": 183,
@@ -603,7 +601,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "12",
       "label": "M",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 7,
         "attemptedNum": 8,
@@ -649,7 +646,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "0",
       "label": "A",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 29,
         "attemptedNum": 56,
@@ -693,7 +689,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "1",
       "label": "B",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 3,
         "attemptedNum": 9,
@@ -737,7 +732,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "2",
       "label": "C",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 99,
         "attemptedNum": 184,
@@ -781,7 +775,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "3",
       "label": "D",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 1,
         "attemptedNum": 1,
@@ -825,7 +818,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "4",
       "label": "E",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 126,
         "attemptedNum": 148,
@@ -869,7 +861,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "5",
       "label": "F",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 125,
         "attemptedNum": 255,
@@ -913,7 +904,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "6",
       "label": "G",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 0,
         "attemptedNum": 0,
@@ -933,7 +923,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "7",
       "label": "H",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 6,
         "attemptedNum": 12,
@@ -977,7 +966,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "8",
       "label": "I",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 2,
         "attemptedNum": 6,
@@ -1021,7 +1009,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "9",
       "label": "J",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 108,
         "attemptedNum": 337,
@@ -1065,7 +1052,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "10",
       "label": "K",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 1,
         "attemptedNum": 4,
@@ -1109,7 +1095,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "11",
       "label": "L",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 48,
         "attemptedNum": 183,
@@ -1153,7 +1138,6 @@ iVBORw0KGgoAAAANSUhEUgAAAL0AAAC9CAMAAADRCYwCAAAB41BMVEVHcEwau034r2WEe974tmmF5Wgn
       },
       "id": "12",
       "label": "M",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 7,
         "attemptedNum": 8,
@@ -1254,7 +1238,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "0",
       "label": "A",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 29,
         "attemptedNum": 56,
@@ -1323,7 +1306,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "1",
       "label": "B",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 3,
         "attemptedNum": 9,
@@ -1414,7 +1396,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "2",
       "label": "C",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 99,
         "attemptedNum": 184,
@@ -1483,7 +1464,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "3",
       "label": "D",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 1,
         "attemptedNum": 1,
@@ -1540,7 +1520,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "4",
       "label": "E",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 126,
         "attemptedNum": 148,
@@ -1609,7 +1588,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "5",
       "label": "F",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 125,
         "attemptedNum": 255,
@@ -1678,7 +1656,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "6",
       "label": "G",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 0,
         "attemptedNum": 0,
@@ -1711,7 +1688,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "7",
       "label": "H",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 6,
         "attemptedNum": 12,
@@ -1791,7 +1767,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "8",
       "label": "I",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 2,
         "attemptedNum": 6,
@@ -1871,7 +1846,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "9",
       "label": "J",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 108,
         "attemptedNum": 337,
@@ -1951,7 +1925,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "10",
       "label": "K",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 1,
         "attemptedNum": 4,
@@ -2053,7 +2026,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "11",
       "label": "L",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 48,
         "attemptedNum": 183,
@@ -2166,7 +2138,6 @@ exports[`contest > 2023_ccpc_final 14`] = `
       },
       "id": "12",
       "label": "M",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 7,
         "attemptedNum": 8,
@@ -2313,7 +2284,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "0",
       "label": "A",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 29,
         "attemptedNum": 56,
@@ -2370,7 +2340,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "1",
       "label": "B",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 3,
         "attemptedNum": 9,
@@ -2427,7 +2396,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "2",
       "label": "C",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 99,
         "attemptedNum": 184,
@@ -2484,7 +2452,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "3",
       "label": "D",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 1,
         "attemptedNum": 1,
@@ -2541,7 +2508,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "4",
       "label": "E",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 126,
         "attemptedNum": 148,
@@ -2808,7 +2774,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "5",
       "label": "F",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 125,
         "attemptedNum": 255,
@@ -2865,7 +2830,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "6",
       "label": "G",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 0,
         "attemptedNum": 0,
@@ -2898,7 +2862,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "7",
       "label": "H",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 6,
         "attemptedNum": 12,
@@ -2955,7 +2918,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "8",
       "label": "I",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 2,
         "attemptedNum": 6,
@@ -3012,7 +2974,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "9",
       "label": "J",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 108,
         "attemptedNum": 337,
@@ -3069,7 +3030,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "10",
       "label": "K",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 1,
         "attemptedNum": 4,
@@ -3126,7 +3086,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "11",
       "label": "L",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 48,
         "attemptedNum": 183,
@@ -3183,7 +3142,6 @@ exports[`contest > 2023_ccpc_final 25`] = `
       },
       "id": "12",
       "label": "M",
-      "name": "",
       "statistics": ProblemStatistics {
         "acceptedNum": 7,
         "attemptedNum": 8,

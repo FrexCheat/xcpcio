@@ -7,6 +7,8 @@
  */
 export type DateTimeISO8601String = string;
 
+export type Lang = "en" | "zh-CN";
+
 /**
  * Color HEX.
  * @example
@@ -60,13 +62,22 @@ export interface BalloonColor {
 /**
  * i18n string set.
  * @example
- * { "en-US": 'English', "zh-CN": '中文', fallback: 'English' }
+ * { "en": 'English', "zh-CN": '中文', fallback: 'English' }
+ * { "en": 'English', "zh-CN": '中文', fallback_lang: 'en' }
  */
 export interface I18NStringSet {
-  /** The fallback string if renderer cannot determine the language to use. */
-  fallback: string;
-  /** The key is the IETF BCP 47 language tag, and the value is the string for this language tag. */
-  [key: string]: string;
+  /**
+   * The fallback string if renderer cannot determine the language to use.
+   */
+  fallback?: string;
+  /**
+   * The fallback language to use if the requested language is not available.
+   */
+  fallback_lang?: Lang;
+  /**
+   * Language-specific text mappings.
+   */
+  texts?: Partial<Record<Lang, string>>;
 }
 
 /**
@@ -94,10 +105,15 @@ export interface Link {
 
 export interface Image {
   url?: string;
+  mime?: string;
+
   base64?: Base64;
   type?: "png" | "svg" | "jpg" | "jpeg";
+
   preset?: ImagePreset;
-  [key: string]: string | undefined;
+
+  width?: number;
+  height?: number;
 }
 
 export interface StatusTimeDisplay {

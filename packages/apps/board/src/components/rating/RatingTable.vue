@@ -3,11 +3,8 @@ import type { Rating, SelectOptionItem } from "@xcpcio/core";
 
 import { Pagination } from "@board/composables/pagination";
 
-import { MultiSelect } from "vue-search-select";
-
 interface FilterOptions {
   organizations: string[];
-  members: string[];
 }
 
 const props = defineProps<{
@@ -20,7 +17,6 @@ const rating = computed(() => props.rating);
 
 const filterOptions = ref<FilterOptions>({
   organizations: [],
-  members: [],
 });
 
 const orgOptions = computed(() => {
@@ -44,52 +40,18 @@ function orgOnSelect(selectedItems: Array<SelectOptionItem>, lastSelectItem: Sel
   orgLastSelectItem.value = lastSelectItem;
 }
 
-// const memberOptions = computed(() => {
-//   const se = new Set();
-//   rating.value.users.forEach((u) => {
-//     return u.members.forEach((m) => {
-//       se.add(m.name);
-//     });
-//   });
-//   const res = Array.from(se);
-
-//   return res.map((o) => {
-//     return {
-//       value: o,
-//       text: o,
-//     };
-//   });
-// });
-
-// const memberSelectedItems = ref<Array<SelectOptionItem>>([]);
-// const memberLastSelectItem = ref({});
-
-// function memberOnSelect(selectedItems: Array<SelectOptionItem>, lastSelectItem: SelectOptionItem) {
-//   memberSelectedItems.value = selectedItems;
-//   memberLastSelectItem.value = lastSelectItem;
-// }
-
 const users = computed(() => {
   const us = rating.value.users;
   return us.filter((u) => {
     const o = filterOptions.value;
 
-    if (o.organizations.length === 0
-      && o.members.length === 0) {
+    if (o.organizations.length === 0) {
       return true;
     }
 
     for (const org of o.organizations) {
       if (org === u.organization) {
         return true;
-      }
-    }
-
-    for (const member of o.members) {
-      for (const m of u.members) {
-        if (member === m.name) {
-          return true;
-        }
       }
     }
 
@@ -100,11 +62,9 @@ const users = computed(() => {
 function onFilter() {
   const newFilterOptions: FilterOptions = {
     organizations: [],
-    members: [],
   };
 
   newFilterOptions.organizations = orgSelectedItems.value.map(o => o.value);
-  // newFilterOptions.members = memberSelectedItems.value.map(o => o.value);
 
   filterOptions.value = newFilterOptions;
 }
@@ -157,7 +117,7 @@ const currentUsers = computed(() => {
             <div
               w-108
             >
-              <MultiSelect
+              <TheMultiSelect
                 :options="orgOptions"
                 :selected-options="orgSelectedItems"
                 placeholder="Organization"
@@ -168,7 +128,7 @@ const currentUsers = computed(() => {
             <!-- <div
               w-68
             >
-              <MultiSelect
+              <TheMultiSelect
                 :options="memberOptions"
                 :selected-options="memberSelectedItems"
                 placeholder="Member"

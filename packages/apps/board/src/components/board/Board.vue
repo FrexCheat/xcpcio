@@ -1,14 +1,8 @@
 <script setup lang="ts">
 import type { Item } from "@board/components/board/SecondLevelMenu.vue";
 import type { Contest, Submissions, Teams } from "@xcpcio/core";
-import type { Contest as IContest, Submissions as ISubmissions, Teams as ITeams } from "@xcpcio/types";
+import type { Contest as IContest, Submissions as ISubmissions, Teams as ITeams, Lang } from "@xcpcio/types";
 
-import FilterModal from "@board/components/board/FilterModal.vue";
-
-import { TITLE_SUFFIX } from "@board/composables/constant";
-import { onKeyStroke, useDocumentVisibility, useIntervalFn, useNow } from "@vueuse/core";
-
-import { useRouteQuery } from "@vueuse/router";
 import { createContest, createSubmissions, createTeams, getImageSource, getTimeDiff, Rank, RankOptions } from "@xcpcio/core";
 import { ContestState } from "@xcpcio/types";
 
@@ -20,7 +14,8 @@ const props = defineProps<{
 
 const route = useRoute();
 const title = useTitle(TITLE_SUFFIX);
-const { t } = useI18n();
+const { t, locale } = useI18n();
+const lang = computed(() => locale.value as unknown as Lang);
 
 const firstLoaded = ref(false);
 const contestData = ref({} as Contest);
@@ -29,12 +24,9 @@ const submissionsData = ref([] as Submissions);
 const rank = ref({} as Rank);
 const now = useNow();
 const rankOptions = ref(new RankOptions());
+const contestName = ref("");
 
 const enableAutoScroll = ref(false);
-
-function fixPath(path: string) {
-  return path.replaceAll("%2F", "/");
-}
 
 (() => {
   const filterOrganizations = useLocalStorageForFilterOrganizations();
@@ -50,7 +42,7 @@ function fixPath(path: string) {
 })();
 
 (() => {
-  const routeQueryForBattleOfGiants = useRouteQueryForBattleOfGiants();
+  const routeQueryForBattleOfGiants = useQueryForBattleOfGiants();
   if (
     routeQueryForBattleOfGiants.value !== null
     && routeQueryForBattleOfGiants.value !== undefined
@@ -68,17 +60,12 @@ function onChangeCurrentGroup(nextGroup: string) {
   rankOptions.value.setGroup(nextGroup);
 }
 (() => {
-  const currentGroupFromRouteQuery = useRouteQuery(
-    /* name */ "group",
-    /* defaultValue */ "all",
-    { transform: String },
-  );
-
+  const currentGroupFromRouteQuery = useQueryForGroup();
   currentGroup.value = currentGroupFromRouteQuery.value;
   rankOptions.value.setGroup(currentGroupFromRouteQuery.value);
 })();
 
-const replayStartTime = useRouteQuery("replay-start-time", 0, { transform: Number });
+const replayStartTime = useQueryForReplayStartTime();
 
 const isReBuildRank = ref(false);
 function reBuildRank(options = { force: false }) {
@@ -102,14 +89,19 @@ function reBuildRank(options = { force: false }) {
   isReBuildRank.value = false;
 }
 
-const { data, isError, error, refetch } = useQueryBoardData(props.dataSourceUrl ?? fixPath(route.path), now);
+function updateContestName() {
+  contestName.value = contestData.value.name.getOrDefault(lang.value);
+  title.value = `${contestName.value} | ${TITLE_SUFFIX}`;
+}
+
+const { data, isError, error, refetch } = useQueryBoardData(props.dataSourceUrl ?? route.path, now);
 watch(data, async () => {
   if (data.value === null || data.value === undefined) {
     return;
   }
 
   contestData.value = createContest(data.value?.contest as IContest);
-  title.value = `${contestData.value.name} | ${TITLE_SUFFIX}`;
+  updateContestName();
 
   teamsData.value = createTeams(data.value?.teams as ITeams);
   submissionsData.value = createSubmissions(data.value?.submissions as ISubmissions, contestData.value);
@@ -122,6 +114,13 @@ watch(data, async () => {
 
   firstLoaded.value = true;
 }, { immediate: true });
+
+watch(lang, () => {
+  if (!firstLoaded.value) {
+    return;
+  }
+  updateContestName();
+});
 
 function dynamicReBuildRank() {
   if (firstLoaded.value === false) {
@@ -176,10 +175,6 @@ const typeMenuList = ref<Array<Item>>([
     keyword: "statistics",
   },
   {
-    title: "type_menu.export",
-    keyword: "export",
-  },
-  {
     title: "type_menu.utility",
     keyword: "utility",
   },
@@ -204,8 +199,7 @@ const groupMenuList = computed(() => {
 
   for (const [k, v] of group.value) {
     const item = {
-      titles: v.names,
-      defaultLang: v.defaultLang,
+      title: v.name,
       keyword: k,
       isDefault: v.isDefault,
     };
@@ -411,7 +405,7 @@ const widthClass = "sm:w-[1260px] xl:w-screen";
         >
           <div class="max-w-[92%]">
             <img
-              :src="getImageSource(rank.contest.banner, `${DATA_HOST}${fixPath(route.path).slice(1)}`)"
+              :src="getImageSource(rank.contest.banner, `${DATA_HOST}${route.path.slice(1)}`)"
               class="w-screen"
               alt="banner"
             >
@@ -428,7 +422,7 @@ const widthClass = "sm:w-[1260px] xl:w-screen";
         mb-2
       >
         <div class="max-w-[92%]">
-          {{ rank.contest.name }}
+          {{ contestName }}
         </div>
       </div>
 
@@ -545,14 +539,6 @@ const widthClass = "sm:w-[1260px] xl:w-screen";
             class="sm:w-full xl:w-[92%]"
           >
             <Statistics
-              :rank="rank"
-            />
-          </div>
-
-          <div
-            v-if="currentType === 'export'"
-          >
-            <Export
               :rank="rank"
             />
           </div>

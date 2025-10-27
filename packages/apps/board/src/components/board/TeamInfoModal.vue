@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Rank, Team } from "@xcpcio/core";
+import type { Lang } from "@xcpcio/types";
 
 import { Chart } from "highcharts-vue";
 
@@ -12,6 +13,9 @@ const props = defineProps<{
 
 const emit = defineEmits(["update:isHidden"]);
 
+const { locale } = useI18n();
+const lang = computed(() => locale.value as unknown as Lang);
+
 const isHidden = computed({
   get() {
     return props.isHidden;
@@ -21,7 +25,7 @@ const isHidden = computed({
   },
 });
 
-const currentType = ref("submissions");
+const currentType = ref("info");
 
 const rank = computed(() => props.rank);
 const team = computed(() => props.team);
@@ -33,23 +37,16 @@ const headerTitle = computed(() => {
     res += `${team.value.organization} - `;
   }
 
-  res += `${team.value.name}`;
-
-  if (team.value.members) {
-    res += ` - ${team.value.members}`;
-  }
-
-  if (team.value.coach) {
-    res += ` - ${team.value.coach}(coach)`;
-  }
+  res += `${team.value.name.getOrDefault(lang.value)}`;
 
   return res;
 });
 
+const TYPE_INFO = "info";
 const TYPE_SUBMISSIONS = "submissions";
 const TYPE_STATISTICS = "statistics";
 const TYPE_AWARDS = "awards";
-const types = [TYPE_SUBMISSIONS, TYPE_STATISTICS, TYPE_AWARDS];
+const types = [TYPE_INFO, TYPE_SUBMISSIONS, TYPE_STATISTICS, TYPE_AWARDS];
 </script>
 
 <template>
@@ -71,13 +68,13 @@ const types = [TYPE_SUBMISSIONS, TYPE_STATISTICS, TYPE_AWARDS];
             space-y-3 md:space-y-0
           >
             <div
-              flex flex-row
-              space-x-3
+              flex flex-row items-center justify-center
+              space-x-4
             >
               <Badge
                 v-if="team.badge"
                 :image="team.badge"
-                width-class="h-8 w-8"
+                width-class="h-16 w-16"
               />
 
               <HeatMapTooltip
@@ -118,6 +115,16 @@ const types = [TYPE_SUBMISSIONS, TYPE_STATISTICS, TYPE_AWARDS];
       font-bold font-mono
       flex items-center justify-center
     >
+      <div
+        v-if="currentType === TYPE_INFO"
+        w-full
+      >
+        <TeamInfo
+          :rank="rank"
+          :team="team"
+        />
+      </div>
+
       <div
         v-if="currentType === TYPE_SUBMISSIONS"
         w-full

@@ -3,6 +3,10 @@ name = "xcpcio"
 description = "xcpcio python lib"
 readme = "README.md"
 authors = [ { name = "Dup4", email = "hi@dup4.com" } ]
+maintainers = [
+    { name = "Dup4", email = "hi@dup4.com" },
+    { name = "cubercsl", email = "hi@cubercsl.site" },
+]
 license = "MIT"
 keywords = [ "xcpcio" ]
 classifiers = [
@@ -24,6 +28,7 @@ dependencies = [
   "tenacity>=8.0.0",
   "fastapi>=0.117.1",
   "uvicorn>=0.36.0",
+  "zstandard>=0.25.0",
 ]
 dynamic = ["version"]
 
@@ -33,16 +38,22 @@ documentation = "https://github.com/xcpcio/xcpcio"
 repository = "https://github.com/xcpcio/xcpcio"
 
 [project.scripts]
-ccs-archiver = "cli.ccs_archiver_cli:main"
+clics-archiver = "xcpcio.app.clics_archiver:main"
+clics-server = "xcpcio.app.clics_server:main"
+clics-uploader = "xcpcio.app.clics_uploader:main"
 
 [tool.ruff]
 line-length = 120
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-nodejs-version"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
+source = "nodejs"
+path = "../package.json"
+
+[tool.hatch.build.hooks.version]
 path = "xcpcio/__version__.py"
 
 [dependency-groups]

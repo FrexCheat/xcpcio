@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Rank, RankOptions } from "@xcpcio/core";
+import type { Lang } from "@xcpcio/types";
 import _ from "lodash";
 
 const props = defineProps<{
@@ -16,7 +17,8 @@ const emit = defineEmits([
 
 const beforeRankOptions = _.cloneDeep(props.rankOptions);
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
+const lang = computed(() => locale.value as unknown as Lang);
 
 const isHidden = computed({
   get() {
@@ -57,14 +59,14 @@ const teamsOptions = computed(() => {
   const res = rank.value.originTeams.map((t) => {
     return {
       value: t.id,
-      text: t.organization ? `${t.name} - ${t.organization}` : t.name,
+      text: t.organization ? `${t.name.getOrDefault(lang.value)} - ${t.organization}` : t.name.getOrDefault(lang.value),
     };
   });
 
   return res;
 });
 
-const routeQueryForBattleOfGiants = useRouteQueryForBattleOfGiants();
+const routeQueryForBattleOfGiants = useQueryForBattleOfGiants();
 function persistBattleOfGiants() {
   if (rankOptions.value.battleOfGiants.persist) {
     routeQueryForBattleOfGiants.value = rankOptions.value.battleOfGiants.ToBase64();
@@ -88,6 +90,10 @@ async function onCancel() {
   isHidden.value = true;
 }
 
+async function onBeforeClose() {
+  await onCancel();
+}
+
 function onConfirm() {
   persistBattleOfGiants();
   isHidden.value = true;
@@ -100,6 +106,7 @@ function onConfirm() {
     :title="title"
     width="w-200"
     mt="mt-4"
+    @on-before-close="onBeforeClose"
   >
     <div
       w-full

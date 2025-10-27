@@ -1,4 +1,4 @@
-import type { BalloonColor, DateTimeISO8601String, Image, TimeUnit } from "./basic-types";
+import type { BalloonColor, DateTimeISO8601String, Image, StatusTimeDisplay, Text, TimeUnit } from "./basic-types";
 import type { Problem } from "./problem";
 
 export enum ContestState {
@@ -19,19 +19,21 @@ export interface ContestOptions {
 
   // deprecated, please use has_reaction_videos instead
   submission_has_reaction?: boolean;
-
   has_reaction_videos?: boolean;
-
   // example: https://your.video.cdn/wf/2025/${submission_id}.mp4
   // ${submission_id} will be replaced with the submission id
   reaction_video_url_template?: string;
+
+  // example: https://your.image.cdn/wf/2025/${team_id}.jpg
+  // ${team_id} will be replaced with the team id
+  team_photo_url_template?: Image;
 }
 
 export type MedalPreset = "ccpc" | "icpc";
 export type BannerMode = "ONLY_BANNER" | "ALL";
 
 export interface Contest {
-  contest_name: string;
+  contest_name: Text;
 
   start_time: number | DateTimeISO8601String;
   end_time: number | DateTimeISO8601String;
@@ -41,14 +43,16 @@ export interface Contest {
   frozen_time?: number; // unit: seconds
 
   problems?: Array<Problem>;
-  problem_id?: Array<string>;
 
-  organization?: string;
-  status_time_display?: Record<string, boolean>;
+  problem_id?: Array<string>; // Array of problem identifiers (e.g., ["A", "B", "C"])
+  balloon_color?: Array<BalloonColor>; // Array of balloon colors corresponding to each problem
+
+  status_time_display?: StatusTimeDisplay;
 
   badge?: string;
+  organization?: string;
+
   medal?: Record<string, Record<string, number>> | MedalPreset;
-  balloon_color?: Array<BalloonColor>;
 
   group?: Record<string, string>;
   tag?: Record<string, string>;

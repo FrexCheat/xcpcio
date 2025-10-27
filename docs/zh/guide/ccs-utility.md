@@ -1,0 +1,297 @@
+<!-- markdownlint-disable MD024 -->
+
+# CCS Utility
+
+XCPCIO 提供了两个强大的 Python CLI 工具，用于处理 CCS（Contest Control System）比赛数据。
+
+## 安装
+
+```bash
+pip install xcpcio
+
+# 中国大陆用户推荐使用清华大学镜像源以获得更快的安装速度：
+pip install xcpcio -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+## clics-uploader
+
+将 CLICS 比赛 API 数据上传到 XCPCIO，支持持续轮询。
+
+### 基本用法
+
+```bash
+clics-uploader \
+  --base-url https://domjudge/api \
+  --contest-id contest123 \
+  -u admin -p secret \
+  --xcpcio-api-token YOUR_TOKEN
+```
+
+### 选项
+
+| 选项                 | 简写 | 描述                                               |
+| -------------------- | ---- | -------------------------------------------------- |
+| `--base-url`         |      | CLICS API 的基础 URL (必需)                        |
+| `--contest-id`       |      | 要上传的比赛 ID (必需)                             |
+| `--username`         | `-u` | CLICS API 的 HTTP 基本认证用户名 (必需)            |
+| `--password`         | `-p` | CLICS API 的 HTTP 基本认证密码 (必需)              |
+| `--xcpcio-api-url`   |      | XCPCIO API URL                                     |
+| `--xcpcio-api-token` |      | XCPCIO API token (必需)                            |
+| `--cache-dir`        |      | 校验和缓存文件目录 (默认: ~/.xcpcio/)              |
+| `--timeout`          |      | 请求超时时间（秒）(默认: 30)                       |
+| `--max-concurrent`   |      | CLICS API 的最大并发请求数 (默认: 10)              |
+| `--log-level`        |      | 日志级别: DEBUG, INFO, WARNING, ERROR (默认: INFO) |
+| `--verbose`          | `-v` | 启用详细日志 (等同于 --log-level DEBUG)            |
+
+### 工作原理
+
+上传器会:
+
+1. 从 CLICS API 获取比赛数据
+2. 计算所有数据的 SHA256 校验和
+3. 仅上传变更的数据到 XCPCIO
+4. 每 5 秒轮询一次更新
+5. 持续运行直到中断 (Ctrl+C)
+
+### 高级用法
+
+**自定义 XCPCIO API 端点:**
+
+```bash
+clics-uploader \
+  --base-url https://domjudge/api \
+  --contest-id contest123 \
+  -u admin -p secret \
+  --xcpcio-api-url https://your-instance.com/api \
+  --xcpcio-api-token YOUR_TOKEN
+```
+
+**自定义缓存目录:**
+
+```bash
+clics-uploader \
+  --base-url https://domjudge/api \
+  --contest-id contest123 \
+  -u admin -p secret \
+  --xcpcio-api-token YOUR_TOKEN \
+  --cache-dir /path/to/cache
+```
+
+**启用详细日志用于调试:**
+
+```bash
+clics-uploader \
+  --base-url https://domjudge/api \
+  --contest-id contest123 \
+  -u admin -p secret \
+  --xcpcio-api-token YOUR_TOKEN \
+  --verbose
+```
+
+### 集成工作流
+
+上传器专为实时比赛数据同步设计:
+
+```bash
+# 在实时比赛期间启动上传器
+clics-uploader \
+  --base-url https://contest.example.com/api \
+  --contest-id icpc2024 \
+  -u admin -p secret \
+  --xcpcio-api-token YOUR_TOKEN
+
+# 上传器将会:
+# - 持续监控 CLICS API
+# - 上传新的提交、判题结果和更新
+# - 使用校验和跳过未变更的数据
+# - 运行直到手动停止
+```
+
+这使您可以:
+
+- 在 XCPCIO 上实时更新排行榜
+- 高效使用带宽 (仅上传变更)
+- 实时比赛期间自动同步
+- 与 XCPCIO 托管服务集成
+
+## clics-archiver
+
+将 CCS 比赛 API 数据归档为标准的比赛包格式。
+
+### 基本用法
+
+```bash
+# 归档到目录
+clics-archiver --base-url https://domjudge/api --contest-id contest123 -o ./output -u admin -p secret
+
+# 归档为 ZIP 文件
+clics-archiver --base-url https://domjudge/api --contest-id contest123 -o contest.zip --token abc123
+
+# 归档为 tar.gz
+clics-archiver --base-url https://domjudge/api --contest-id contest123 -o contest.tar.gz -u admin -p secret
+
+# 归档为 tar.zst (Zstandard 压缩)
+clics-archiver --base-url https://domjudge/api --contest-id contest123 -o contest.tar.zst -u admin -p secret
+```
+
+### 选项
+
+| 选项               | 简写 | 描述                                               |
+| ------------------ | ---- | -------------------------------------------------- |
+| `--base-url`       |      | CCS API 的基础 URL (必需)                          |
+| `--contest-id`     |      | 要归档的比赛 ID (必需)                             |
+| `--output`         | `-o` | 输出路径：目录或归档文件 (必需)                    |
+| `--username`       | `-u` | HTTP 基本认证用户名                                |
+| `--password`       | `-p` | HTTP 基本认证密码                                  |
+| `--token`          | `-t` | Bearer token 认证                                  |
+| `--no-files`       |      | 跳过文件下载                                       |
+| `--no-event-feed`  |      | 跳过 event-feed 转储 (大型聚合数据)                |
+| `--endpoints`      | `-e` | 指定要转储的端点 (可重复使用)                      |
+| `--timeout`        |      | 请求超时时间（秒）(默认: 30)                       |
+| `--max-concurrent` |      | 最大并发请求数 (默认: 10)                          |
+| `--log-level`      |      | 日志级别: DEBUG, INFO, WARNING, ERROR (默认: INFO) |
+| `--verbose`        | `-v` | 启用详细日志 (等同于 --log-level DEBUG)            |
+
+### 高级用法
+
+**仅归档特定端点:**
+
+```bash
+clics-archiver --base-url https://domjudge/api \
+  --contest-id contest123 \
+  -o ./output -u admin -p secret \
+  -e teams -e problems -e submissions
+```
+
+**跳过文件下载以加快归档速度:**
+
+```bash
+clics-archiver --base-url https://domjudge/api \
+  --contest-id contest123 \
+  -o contest.zip --no-files -u admin -p secret
+```
+
+**调整性能设置:**
+
+```bash
+clics-archiver --base-url https://domjudge/api \
+  --contest-id contest123 \
+  -o ./output -u admin -p secret \
+  --timeout 60 --max-concurrent 20
+```
+
+### 输出格式
+
+工具支持多种输出格式:
+
+- **目录**: 未压缩的目录结构比赛包
+- **ZIP**: 标准 ZIP 压缩 (`.zip`)
+- **tar.gz**: Gzip 压缩的 tarball (`.tar.gz`)
+- **tar.zst**: Zstandard 压缩的 tarball (`.tar.zst`) - 推荐使用，压缩率最佳
+
+创建归档文件时，工具会自动生成校验和（MD5、SHA1、SHA256、SHA512）用于验证。
+
+### 身份认证
+
+工具支持两种认证方式:
+
+1. **HTTP 基本认证**: 使用 `--username` 和 `--password`
+2. **Bearer Token**: 使用 `--token`
+
+如果不提供认证信息，某些端点可能无法访问。
+
+## clics-server
+
+从比赛包启动本地 CCS API 服务器。
+
+### 基本用法
+
+```bash
+# 使用比赛目录启动服务器
+clics-server -p /path/to/contest
+
+# 使用归档文件启动服务器
+clics-server -p /path/to/contest.zip
+clics-server -p /path/to/contest.tar.gz
+clics-server -p /path/to/contest.tar.zst
+```
+
+### 选项
+
+| 选项                | 简写 | 描述                                                         |
+| ------------------- | ---- | ------------------------------------------------------------ |
+| `--contest-package` | `-p` | 比赛包目录或归档文件 (必需)                                  |
+| `--host`            |      | 绑定的主机地址 (默认: 0.0.0.0)                               |
+| `--port`            |      | 绑定的端口 (默认: 8000)                                      |
+| `--reload`          |      | 启用自动重载（开发模式）                                     |
+| `--log-level`       |      | 日志级别: debug, info, warning, error, critical (默认: info) |
+| `--verbose`         | `-v` | 启用详细日志 (等同于 --log-level debug)                      |
+
+### 高级用法
+
+**自定义主机和端口:**
+
+```bash
+clics-server -p /path/to/contest --host 127.0.0.1 --port 9000
+```
+
+**开发模式（自动重载）:**
+
+```bash
+clics-server -p /path/to/contest --reload --verbose
+```
+
+**生产环境部署:**
+
+```bash
+clics-server -p /path/to/contest.tar.zst --host 0.0.0.0 --port 8000
+```
+
+### 支持的归档格式
+
+服务器可以直接从以下格式提供比赛数据服务:
+
+- 未压缩的目录
+- ZIP 文件 (`.zip`)
+- Gzip 压缩的 tarball (`.tar.gz`)
+- Zstandard 压缩的 tarball (`.tar.zst`)
+
+归档文件会在启动时自动解压到临时目录，退出时自动清理。
+
+### API 端点
+
+启动后，服务器提供标准的 CCS API 端点:
+
+- `GET /contests` - 列出比赛
+- `GET /contests/{id}` - 获取比赛详情
+- `GET /contests/{id}/teams` - 获取队伍信息
+- `GET /contests/{id}/problems` - 获取题目信息
+- `GET /contests/{id}/submissions` - 获取提交记录
+- 以及更多...
+
+通过 `http://localhost:8000` 访问 API（或您配置的 host:port）。
+
+## 工作流示例
+
+归档和提供比赛数据的典型工作流:
+
+```bash
+# 1. 从实时 CCS API 归档比赛数据
+clics-archiver \
+  --base-url https://contest.example.com/api \
+  --contest-id icpc2024 \
+  -o icpc2024.tar.zst \
+  --token your-api-token
+
+# 2. 从归档数据启动本地 API 服务器
+clics-server -p icpc2024.tar.zst --port 8000
+
+# 3. 通过 http://localhost:8000 访问 API
+```
+
+这使您可以:
+
+- 创建可移植的比赛数据快照
+- 离线提供比赛数据服务
+- 针对归档的比赛数据进行测试和开发
+- 与他人共享比赛数据
