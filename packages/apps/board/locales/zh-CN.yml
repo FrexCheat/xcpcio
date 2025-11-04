@@ -32,7 +32,6 @@ type_menu:
   resolver: 滚榜
   filter: 筛选
   options: 选项
-  awards: 奖项
   utility: 工具
   countdown: 倒计时
 
@@ -87,3 +86,10 @@ team_info:
   members: 队员
   coaches: 教练
   location: 位置
+  award: 奖项
+
+medal:
+  gold: 金奖
+  silver: 银奖
+  bronze: 铜奖
+  honorable: 优胜奖

@@ -6,7 +6,7 @@ const Guides: DefaultTheme.NavItemWithLink[] = [
   { text: "Getting Started", link: "/guide/" },
   { text: "Leaderboard Integration", link: "/guide/board" },
   { text: "Data Format", link: "/guide/data-format" },
-  { text: "CCS Utility", link: "/guide/ccs-utility" },
+  { text: "Clics Utility", link: "/guide/clics-utility" },
 ];
 
 const Sponsors: DefaultTheme.NavItemWithLink[] = [
@@ -61,6 +61,10 @@ export default defineAdditionalConfig({
       pattern: "https://github.com/xcpcio/xcpcio/edit/main/docs/:path",
       text: "Edit this page on GitHub",
     },
+
+    socialLinks: [
+      { icon: "github", link: "https://github.com/xcpcio/xcpcio" },
+    ],
 
     footer: {
       message: "Released under the MIT License.",

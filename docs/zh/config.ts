@@ -6,7 +6,7 @@ const Guides: DefaultTheme.NavItemWithLink[] = [
   { text: "快速开始", link: "/zh/guide/" },
   { text: "榜单集成", link: "/zh/guide/board" },
   { text: "数据格式", link: "/zh/guide/data-format" },
-  { text: "CCS 工具", link: "/zh/guide/ccs-utility" },
+  { text: "Clics 工具集", link: "/zh/guide/clics-utility" },
 ];
 
 const Sponsors: DefaultTheme.NavItemWithLink[] = [
@@ -330,6 +330,10 @@ export default defineAdditionalConfig({
       pattern: "https://github.com/xcpcio/xcpcio/edit/main/docs/:path",
       text: "在 GitHub 上编辑此页面",
     },
+
+    socialLinks: [
+      { icon: "github", link: "https://github.com/xcpcio/xcpcio" },
+    ],
 
     footer: {
       message: "基于 MIT 许可发布",

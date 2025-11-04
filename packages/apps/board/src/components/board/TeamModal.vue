@@ -14,8 +14,7 @@ const emit = defineEmits(["update:isHidden"]);
 const TYPE_OVERVIEW = "overview";
 const TYPE_SUBMISSIONS = "submissions";
 const TYPE_STATISTICS = "statistics";
-const TYPE_AWARDS = "awards";
-const types = [TYPE_OVERVIEW, TYPE_SUBMISSIONS, TYPE_STATISTICS, TYPE_AWARDS];
+const types = [TYPE_OVERVIEW, TYPE_SUBMISSIONS, TYPE_STATISTICS];
 
 const { locale } = useI18n();
 const lang = computed(() => locale.value as unknown as Lang);
@@ -94,6 +93,9 @@ const headerTitle = computed(() => {
                     <div>
                       TeamID: {{ team.id }}
                     </div>
+                    <div v-if="team.icpcID && team.icpcID.length > 0">
+                      ICPC ID: {{ team.icpcID }}
+                    </div>
                   </div>
                 </template>
               </HeatMapTooltip>
@@ -117,7 +119,7 @@ const headerTitle = computed(() => {
         v-if="currentType === TYPE_OVERVIEW"
         w-full
       >
-        <TeamInfo
+        <TeamOverview
           :rank="rank"
           :team="team"
         />
@@ -143,16 +145,6 @@ const headerTitle = computed(() => {
       >
         <Chart
           :options="getTeamPlaceChart(rank, team)"
-        />
-      </div>
-
-      <div
-        v-if="currentType === TYPE_AWARDS"
-        w-full
-      >
-        <TeamAwards
-          :team="team"
-          :rank="rank"
         />
       </div>
     </div>

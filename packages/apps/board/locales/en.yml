@@ -32,7 +32,6 @@ type_menu:
   resolver: Resolver
   filter: Filter
   options: Options
-  awards: Awards
   utility: Utility
   countdown: Countdown
 
@@ -87,3 +86,10 @@ team_info:
   members: Members
   coaches: Coaches
   location: Location
+  award: Award
+
+medal:
+  gold: Gold Medal
+  silver: Silver Medal
+  bronze: Bronze Medal
+  honorable: Honorable Mention
